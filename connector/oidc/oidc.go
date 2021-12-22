@@ -205,6 +205,9 @@ func (c *oidcConnector) LoginURL(s connector.Scopes, callbackURL, state string, 
 	if s.OfflineAccess {
 		opts = append(opts, oauth2.AccessTypeOffline, oauth2.SetAuthURLParam("prompt", c.promptType))
 	}
+	if loginHint != "" {
+		opts = append(opts, oauth2.SetAuthURLParam("login_hint", loginHint))
+	}
 	return c.oauth2Config.AuthCodeURL(state, opts...), nil
 }
 
