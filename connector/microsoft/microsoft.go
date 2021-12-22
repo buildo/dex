@@ -160,6 +160,9 @@ func (c *microsoftConnector) LoginURL(scopes connector.Scopes, callbackURL, stat
 	if c.promptType != "" {
 		options = append(options, oauth2.SetAuthURLParam("prompt", c.promptType))
 	}
+	if loginHint != "" {
+		options = append(options, oauth2.SetAuthURLParam("login_hint", loginHint))
+	}
 
 	return c.oauth2Config(scopes).AuthCodeURL(state, options...), nil
 }
