@@ -154,7 +154,7 @@ func newHTTPClient(rootCAs []string, insecureSkipVerify bool) (*http.Client, err
 	}, nil
 }
 
-func (c *oauthConnector) LoginURL(scopes connector.Scopes, callbackURL, state string) (string, error) {
+func (c *oauthConnector) LoginURL(scopes connector.Scopes, callbackURL, state string, loginHint string) (string, error) {
 	if c.redirectURI != callbackURL {
 		return "", fmt.Errorf("expected callback URL %q did not match the URL in the config %q", callbackURL, c.redirectURI)
 	}

@@ -223,6 +223,10 @@ type AuthRequest struct {
 
 	// PKCE CodeChallenge and CodeChallengeMethod
 	PKCE PKCE
+
+	// Hint to the Authorization Server about the login identifier the End-User
+	// might use to log in. Parsed from the initial request.
+	LoginHint string
 }
 
 // AuthCode represents a code which can be exchanged for an OAuth2 token response.

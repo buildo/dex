@@ -575,6 +575,7 @@ func (s *Server) parseAuthorizationRequest(r *http.Request) (*storage.AuthReques
 			CodeChallenge:       codeChallenge,
 			CodeChallengeMethod: codeChallengeMethod,
 		},
+    LoginHint:           q.Get("login_hint"),
 	}, nil
 }
 

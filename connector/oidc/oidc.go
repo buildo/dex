@@ -188,7 +188,7 @@ func (c *oidcConnector) Close() error {
 	return nil
 }
 
-func (c *oidcConnector) LoginURL(s connector.Scopes, callbackURL, state string) (string, error) {
+func (c *oidcConnector) LoginURL(s connector.Scopes, callbackURL, state string, loginHint string) (string, error) {
 	if c.redirectURI != callbackURL {
 		return "", fmt.Errorf("expected callback URL %q did not match the URL in the config %q", callbackURL, c.redirectURI)
 	}
