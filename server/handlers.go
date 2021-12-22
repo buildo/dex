@@ -260,6 +260,7 @@ func (s *Server) handleConnectorLogin(w http.ResponseWriter, r *http.Request) {
 			q := loginURL.Query()
 			q.Set("state", authReq.ID)
 			q.Set("back", backLink)
+			q.Set("login_hint", authReq.LoginHint)
 			loginURL.RawQuery = q.Encode()
 
 			http.Redirect(w, r, loginURL.String(), http.StatusFound)
@@ -304,6 +305,7 @@ func (s *Server) handlePasswordLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	backLink := r.URL.Query().Get("back")
+	loginHint := r.URL.Query().Get("login_hint")
 
 	authReq, err := s.storage.GetAuthRequest(authID)
 	if err != nil {
@@ -339,7 +341,7 @@ func (s *Server) handlePasswordLogin(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodGet:
-		if err := s.templates.password(r, w, r.URL.String(), "", usernamePrompt(pwConn), false, backLink); err != nil {
+		if err := s.templates.password(r, w, r.URL.String(), loginHint, usernamePrompt(pwConn), false, backLink); err != nil {
 			s.logger.Errorf("Server template error: %v", err)
 		}
 	case http.MethodPost:
